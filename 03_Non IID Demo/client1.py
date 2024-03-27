@@ -6,6 +6,10 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 
+if len(sys.argv) != 3:
+    print("ArgumentError - Usage: python3 <script> <server_addr> <server_port>")
+    exit(127)
+
 # AUxillary methods
 def getDist(y):
     ax = sns.countplot(y)
@@ -42,7 +46,7 @@ getDist(y_train)
 
 # Define Flower client
 class FlowerClient(fl.client.NumPyClient):
-    def get_parameters(self):
+    def get_parameters(self, config):
         return model.get_weights()
 
     def fit(self, parameters, config):
@@ -60,7 +64,7 @@ class FlowerClient(fl.client.NumPyClient):
 
 # Start Flower client
 fl.client.start_numpy_client(
-        server_address="localhost:"+str(sys.argv[1]), 
+        server_address=str(sys.argv[1]) + ':' + str(sys.argv[2]),
         client=FlowerClient(), 
-        grpc_max_message_length = 1024*1024*1024
+        grpc_max_message_length=1024*1024*1024
 )
