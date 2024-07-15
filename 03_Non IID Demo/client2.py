@@ -11,10 +11,10 @@ if len(sys.argv) != 3:
     exit(127)
 
 # AUxillary methods
-def getDist(y):
-    ax = sns.countplot(y)
-    ax.set(title="Count of data classes")
-    plt.show()
+# def getDist(y):
+#     ax = sns.countplot(y)
+#     ax.set(title="Count of data classes")
+#     plt.show()
 
 def getData(dist, x, y):
     dx = []
@@ -42,7 +42,7 @@ model.compile("adam", "sparse_categorical_crossentropy", metrics=["accuracy"])
 x_train, x_test = x_train[..., np.newaxis]/255.0, x_test[..., np.newaxis]/255.0
 dist = [0, 10, 10, 10, 4000, 3000, 4000, 5000, 10, 4500]
 x_train, y_train = getData(dist, x_train, y_train)
-getDist(y_train)
+# getDist(y_train)
 
 # Define Flower client
 class FlowerClient(fl.client.NumPyClient):
